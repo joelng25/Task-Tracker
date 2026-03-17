@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Task, getTasks } from './services/taskService';
 import { TaskForm } from './components/TaskForm';
 import { TaskList } from './components/TaskList';
@@ -9,7 +9,7 @@ function App() {
   const [filter, setFilter] = useState<string>('all');
   const [loading, setLoading] = useState(false);
 
-  const loadTasks = async () => {
+  const loadTasks = useCallback(async () => {
     try {
       setLoading(true);
       const data = filter === 'all' ? await getTasks() : await getTasks(filter);
@@ -20,11 +20,11 @@ function App() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filter]);
 
   useEffect(() => {
     loadTasks();
-  }, [filter]);
+  }, [loadTasks]);
 
   return (
     <div className="App">
