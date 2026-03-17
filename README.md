@@ -88,3 +88,4 @@ Tasks are saved in `tasks.json`:
 
 - Backend: C++ with httplib and nlohmann/json
 - Frontend: React + TypeScript
+
