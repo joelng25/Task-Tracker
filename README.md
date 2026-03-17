@@ -57,7 +57,7 @@ App opens at `http://localhost:3000`
 1. Start the backend: `./task-server` in the CLI folder
 2. Start the frontend: `npm start` in the web folder
 3. Type in a task, hit "Add Task"
-4. Change status with the dropdown, delete with the button
+4. Change status with the dropdown, delete with the button 
 
 ## API
 
