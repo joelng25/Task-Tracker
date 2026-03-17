@@ -89,3 +89,14 @@ Tasks are saved in `tasks.json`:
 - Backend: C++ with httplib and nlohmann/json
 - Frontend: React + TypeScript
 
+## Dependencies
+
+### Backend
+- C++11 or later
+- g++ compiler
+- make
+
+### Frontend
+- Node.js (v14 or later)
+- npm (comes with Node.js)
+
