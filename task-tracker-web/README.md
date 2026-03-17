@@ -1,6 +1,17 @@
-# Getting Started with Create React App
+# Task Tracker Web
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Performance Optimizations
+
+The following optimizations have been implemented for faster `npm start`:
+
+- **Skipped preflight checks** - Reduces startup latency
+- **Disabled sourcemaps in dev** - Faster compilation
+- **Enabled TypeScript incremental compilation** - Caches type-checking results
+- **Optimized bundle size** - Inline smaller images
+
+These settings are configured in `.env` and `.env.development` files.
 
 ## Available Scripts
 
