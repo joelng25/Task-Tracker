@@ -3,7 +3,7 @@
 
 # Task Tracker
 
-A simple task management app built with C++ on the backend and React on the frontend. Add, update, and delete tasks. Nothing fancy, just works.
+A simple task management app built with C++ on the backend and React on the frontend. Add, update, and delete tasks.
 
 ## What it does
 
@@ -12,22 +12,6 @@ A simple task management app built with C++ on the backend and React on the fron
 - Update task status with a dropdown
 - Delete tasks
 - All changes saved to a JSON file
-
-## Folders
-
-```
-├── Task-Tracker-CLI/      # Backend (C++ server)
-│   ├── server.cc
-│   ├── task_manager.cpp
-│   ├── tasks.json
-│   └── Makefile
-└── task-tracker-web/      # Frontend (React)
-    ├── src/
-    │   ├── App.tsx
-    │   ├── components/
-    │   └── services/
-    └── package.json
-```
 
 ## Installation
 
