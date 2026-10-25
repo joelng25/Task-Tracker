@@ -1,10 +1,12 @@
-FROM gcc:14 AS build
+# Build and run on the same Debian release so the C/C++ runtime versions match.
+FROM debian:trixie-slim AS build
+RUN apt-get update && apt-get install -y --no-install-recommends g++ make \
+    && rm -rf /var/lib/apt/lists/*
 WORKDIR /src
 COPY . .
-# Link the C++ runtime statically: the gcc:14 libstdc++ is newer than the one in debian slim.
-RUN make task-server CXXFLAGS="-std=c++17 -O2 -Wall -Wextra -static-libstdc++ -static-libgcc"
+RUN make task-server
 
-FROM debian:bookworm-slim
+FROM debian:trixie-slim
 WORKDIR /app
 COPY --from=build /src/task-server /app/task-server
 ENV HOST=0.0.0.0 \
