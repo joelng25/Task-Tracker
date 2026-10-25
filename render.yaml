@@ -1,0 +1,25 @@
+# Render Blueprint: deploys the Task Tracker as two web services.
+# Dashboard -> New -> Blueprint -> pick this repo, and Render creates both.
+services:
+  - type: web
+    name: task-tracker-api
+    runtime: docker
+    rootDir: Task-Tracker-CLI
+    plan: free
+    healthCheckPath: /api/tasks
+    envVars:
+      - key: CORS_ORIGIN
+        value: "*"
+
+  - type: web
+    name: task-tracker-web
+    runtime: docker
+    rootDir: task-tracker-web
+    plan: free
+    envVars:
+      # Internal address of the API service; nginx proxies /api/* there.
+      - key: TASK_API_URL
+        fromService:
+          type: web
+          name: task-tracker-api
+          property: hostport
