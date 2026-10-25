@@ -1,4 +1,3 @@
-
 <img src="ballot.svg" width="150" height="150" />
 
 # Task Tracker
@@ -6,6 +5,14 @@
 [![CI](https://github.com/joelng25/Task-Tracker/actions/workflows/ci.yml/badge.svg)](https://github.com/joelng25/Task-Tracker/actions/workflows/ci.yml)
 
 A simple task management app built with C++ on the backend and React on the frontend. Add, update, and delete tasks.
+
+## Live demo
+
+[**Open the app**](https://task-tracker-web-4uqz.onrender.com) — deployed on Render from the [render.yaml](render.yaml) blueprint.
+
+The API is public as well: [GET /api/tasks](https://task-tracker-api-fak9.onrender.com/api/tasks).
+
+> On Render's free plan the services go to sleep after 15 minutes of inactivity, so the first load can take about 30 seconds. Task data lives inside the container and is reset whenever a service restarts or redeploys.
 
 ## What it does
 
@@ -96,6 +103,6 @@ Tasks are saved in `tasks.json`:
 - Backend: C++ with httplib and nlohmann/json
 - Frontend: React + TypeScript + Vite, tested with Vitest
 - Docker Compose for running both together
+- Render for the hosted demo
 
 The backend code is shared with [Task-Tracker-CLI](https://github.com/joelng25/Task-Tracker-CLI), which contains the original command-line version.
-
