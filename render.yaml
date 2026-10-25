@@ -17,9 +17,7 @@ services:
     rootDir: task-tracker-web
     plan: free
     envVars:
-      # Internal address of the API service; nginx proxies /api/* there.
+      # Free Render services cannot talk over the private network, so nginx
+      # proxies /api/* to the API's PUBLIC URL. Change it if your API URL differs.
       - key: TASK_API_URL
-        fromService:
-          type: web
-          name: task-tracker-api
-          property: hostport
+        value: https://task-tracker-api-fak9.onrender.com
