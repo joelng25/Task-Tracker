@@ -16,7 +16,7 @@ function App() {
       setTasks(data);
     } catch (error) {
       console.error('Error loading tasks:', error);
-      alert('Error loading tasks. Make sure the backend server is running on http://localhost:8080');
+      alert('Error loading tasks. Make sure the backend server is running.');
     } finally {
       setLoading(false);
     }

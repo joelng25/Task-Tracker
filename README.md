@@ -3,6 +3,8 @@
 
 # Task Tracker
 
+[![CI](https://github.com/joelng25/Task-Tracker/actions/workflows/ci.yml/badge.svg)](https://github.com/joelng25/Task-Tracker/actions/workflows/ci.yml)
+
 A simple task management app built with C++ on the backend and React on the frontend. Add, update, and delete tasks.
 
 ## What it does
@@ -17,7 +19,7 @@ A simple task management app built with C++ on the backend and React on the fron
 
 ### Backend
 
-You need C++11, g++, and make.
+You need a C++17 compiler, make and (for tests) GoogleTest.
 
 ```bash
 cd Task-Tracker-CLI
@@ -25,7 +27,16 @@ make
 ./task-server
 ```
 
-Server runs on `http://localhost:8080`
+Server runs on `http://localhost:8080`. It can be configured with environment variables:
+
+| Variable | Default | Description |
+|---|---|---|
+| `HOST` | `localhost` | Address to listen on |
+| `PORT` | `8080` | Port |
+| `CORS_ORIGIN` | `http://localhost:3000` | Origin allowed to call the API |
+| `TASKS_FILE` | `tasks.json` | Where tasks are stored |
+
+Run the backend tests with `make run-tests`.
 
 ### Frontend
 
@@ -37,7 +48,9 @@ npm install
 npm start
 ```
 
-App opens at `http://localhost:3000`
+App opens at `http://localhost:3000`. To point it to another API, set `REACT_APP_API_URL` (default `http://localhost:8080/api`).
+
+Run the frontend tests with `npm test`.
 
 ## How to use
 
@@ -51,8 +64,10 @@ App opens at `http://localhost:3000`
 Basic REST endpoints:
 - `GET /api/tasks` - get all tasks
 - `POST /api/tasks` - add task (send `{"description": "..."}`)
-- `PUT /api/tasks/:id` - update status (send `{"status": "done"}`)
+- `PUT /api/tasks/:id` - update status (send `{"status": "todo" | "in-progress" | "done"}`)
 - `DELETE /api/tasks/:id` - delete task
+
+Invalid bodies return `400`, unknown ids return `404`.
 
 ## Storage
 
