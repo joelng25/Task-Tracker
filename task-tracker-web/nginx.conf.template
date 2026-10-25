@@ -5,14 +5,19 @@ server {
     root /usr/share/nginx/html;
     index index.html;
 
-    # Proxy API calls to the backend service so the frontend stays same-origin
-    # (no CORS needed in production).
+    # Resolve the API host at request time, so nginx starts even if the API
+    # is still deploying or asleep.
+    resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
+
+    # Proxy API calls to the backend so the frontend stays same-origin.
     location /api/ {
-        proxy_pass http://${TASK_API_URL};
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
+        set $api_upstream "${TASK_API_URL}";
+        proxy_pass $api_upstream;
+        proxy_ssl_server_name on;
+        proxy_set_header Host $proxy_host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 90s;
     }
 
     # SPA fallback: every other path serves the app.
