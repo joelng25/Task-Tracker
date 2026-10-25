@@ -1,0 +1,22 @@
+services:
+  api:
+    build: ./Task-Tracker-CLI
+    ports:
+      - "8080:8080"
+    environment:
+      CORS_ORIGIN: http://localhost:3000
+    volumes:
+      - tasks-data:/data
+
+  web:
+    build:
+      context: ./task-tracker-web
+      args:
+        VITE_API_URL: http://localhost:8080/api
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+
+volumes:
+  tasks-data:

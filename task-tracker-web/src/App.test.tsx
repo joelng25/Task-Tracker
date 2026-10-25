@@ -1,10 +1,11 @@
 import React from 'react';
+import { vi, type Mocked } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import App from './App';
 import * as taskService from './services/taskService';
 
-jest.mock('./services/taskService');
-const mocked = taskService as jest.Mocked<typeof taskService>;
+vi.mock('./services/taskService');
+const mocked = taskService as Mocked<typeof taskService>;
 
 const sampleTasks: taskService.Task[] = [
   { id: 1, desc: 'Write tests', status: 'todo', createdAt: '2026-01-01', updatedAt: '2026-01-01' },
@@ -12,7 +13,7 @@ const sampleTasks: taskService.Task[] = [
 ];
 
 beforeEach(() => {
-  jest.resetAllMocks();
+  vi.resetAllMocks();
   mocked.getTasks.mockResolvedValue(sampleTasks);
 });
 

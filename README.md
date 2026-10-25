@@ -15,6 +15,14 @@ A simple task management app built with C++ on the backend and React on the fron
 - Delete tasks
 - All changes saved to a JSON file
 
+## Quick start with Docker
+
+```bash
+docker compose up --build
+```
+
+Open `http://localhost:3000`. The API runs on `http://localhost:8080` and tasks are kept in a Docker volume.
+
 ## Installation
 
 ### Backend
@@ -40,22 +48,22 @@ Run the backend tests with `make run-tests`.
 
 ### Frontend
 
-You need Node.js and npm.
+You need Node.js 22+ and npm.
 
 ```bash
 cd task-tracker-web
 npm install
-npm start
+npm run dev
 ```
 
-App opens at `http://localhost:3000`. To point it to another API, set `REACT_APP_API_URL` (default `http://localhost:8080/api`).
+App opens at `http://localhost:3000`. To point it to another API, set `VITE_API_URL` (default `http://localhost:8080/api`).
 
 Run the frontend tests with `npm test`.
 
 ## How to use
 
 1. Start the backend: `./task-server` in the CLI folder
-2. Start the frontend: `npm start` in the web folder
+2. Start the frontend: `npm run dev` in the web folder
 3. Type in a task, hit "Add Task"
 4. Change status with the dropdown, delete with the button 
 
@@ -86,5 +94,8 @@ Tasks are saved in `tasks.json`:
 ## Tech stack
 
 - Backend: C++ with httplib and nlohmann/json
-- Frontend: React + TypeScript
+- Frontend: React + TypeScript + Vite, tested with Vitest
+- Docker Compose for running both together
+
+The backend code is shared with [Task-Tracker-CLI](https://github.com/joelng25/Task-Tracker-CLI), which contains the original command-line version.
 
