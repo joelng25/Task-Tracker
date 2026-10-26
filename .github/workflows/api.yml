@@ -1,0 +1,12 @@
+name: API regressions
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Task-Tracker-CLI
+    steps:
+      - uses: actions/checkout@v4
+      - run: make task-server
+      - run: python3 test_api.py

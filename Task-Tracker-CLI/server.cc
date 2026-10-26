@@ -6,6 +6,7 @@
 #include "httplib.h"
 #include "json.hpp"
 #include "task_manager.h"
+#include "task_id.h"
 
 using json = nlohmann::json;
 
@@ -96,14 +97,16 @@ int main() {
 
     std::lock_guard<std::mutex> lock(manager_mutex);
     if (!manager.addTask(description)) {
-      return sendError(res, 400, "Failed to add task");
+      return sendError(res, 500, "Failed to save task");
     }
     // The new task has the highest id, so it is the last one.
     sendJson(res, 201, {{"success", true}, {"data", manager.getAllTasks().back().toJson()}});
   });
 
   svr.Put(R"(/api/tasks/(\d+))", [&](const httplib::Request& req, httplib::Response& res) {
-    int id = std::stoi(req.matches[1]);
+    int id;
+    try { id = parseTaskId(req.matches[1].str()); }
+    catch (const std::invalid_argument&) { return sendError(res, 400, "Invalid task ID"); }
     json body = json::parse(req.body, nullptr, false);
     if (body.is_discarded() || !body.contains("status") || !body["status"].is_string() ||
         !isValidStatus(body["status"])) {
@@ -112,17 +115,21 @@ int main() {
     std::string status = body["status"];
 
     std::lock_guard<std::mutex> lock(manager_mutex);
+    if (!manager.findTaskById(id)) return sendError(res, 404, "Task not found");
     bool found = status == "done"          ? manager.markDone(id)
                  : status == "in-progress" ? manager.markInProgress(id)
                                            : manager.markTodo(id);
-    if (!found) return sendError(res, 404, "Task not found");
+    if (!found) return sendError(res, 500, "Failed to save task");
     sendJson(res, 200, {{"success", true}, {"message", "Task updated"}});
   });
 
   svr.Delete(R"(/api/tasks/(\d+))", [&](const httplib::Request& req, httplib::Response& res) {
-    int id = std::stoi(req.matches[1]);
+    int id;
+    try { id = parseTaskId(req.matches[1].str()); }
+    catch (const std::invalid_argument&) { return sendError(res, 400, "Invalid task ID"); }
     std::lock_guard<std::mutex> lock(manager_mutex);
-    if (!manager.deleteTask(id)) return sendError(res, 404, "Task not found");
+    if (!manager.findTaskById(id)) return sendError(res, 404, "Task not found");
+    if (!manager.deleteTask(id)) return sendError(res, 500, "Failed to save task");
     sendJson(res, 200, {{"success", true}, {"message", "Task deleted"}});
   });
 
