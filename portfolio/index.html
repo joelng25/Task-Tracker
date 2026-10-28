@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Joel Novio García, Computer Engineering student (Software Engineering track) at UPC/FIB Barcelona, looking for afternoon frontend internships."
+    />
+    <meta name="author" content="Joel Novio García" />
+    <meta name="color-scheme" content="light dark" />
+    <meta property="og:title" content="Joel Novio García" />
+    <meta
+      property="og:description"
+      content="Computer Engineering student at UPC/FIB Barcelona, looking for afternoon frontend internships."
+    />
+    <meta property="og:type" content="profile" />
+    <meta name="theme-color" content="#f3efe6" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="me" href="https://github.com/joelng25" />
+    <link rel="me" href="https://www.linkedin.com/in/joel-novio" />
+    <link rel="me" href="mailto:joelnogao625@gmail.com" />
+    <title>Joel Novio García · Computer Engineering</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Joel Novio García",
+        "email": "mailto:joelnogao625@gmail.com",
+        "jobTitle": "Computer Engineering student",
+        "homeLocation": {
+          "@type": "Place",
+          "name": "Barcelona"
+        },
+        "affiliation": {
+          "@type": "CollegeOrUniversity",
+          "name": "Universitat Politècnica de Catalunya",
+          "department": "Facultat d'Informàtica de Barcelona"
+        },
+        "sameAs": [
+          "https://github.com/joelng25",
+          "https://www.linkedin.com/in/joel-novio"
+        ]
+      }
+    </script>
+    <script>
+      (function () {
+        try {
+          var theme = localStorage.getItem('theme')
+          var dark =
+            theme === 'dark' ||
+            (theme !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+          if (dark) document.documentElement.classList.add('dark')
+          var lang = localStorage.getItem('lang')
+          if (lang === 'ca' || lang === 'es' || lang === 'en') {
+            document.documentElement.lang = lang
+          }
+          var themeColor = document.querySelector('meta[name="theme-color"]')
+          if (themeColor) themeColor.setAttribute('content', dark ? '#141210' : '#f3efe6')
+        } catch (e) {}
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
