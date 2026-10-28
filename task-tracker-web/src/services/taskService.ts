@@ -1,4 +1,9 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+// Baked in at build time. Vite only exposes variables that start with VITE_.
+// Unset locally -> http://localhost:8080/api
+// Docker/Render -> /api (nginx proxies that path)
+// Vercel -> set VITE_API_URL to the public API, including /api
+const configured = import.meta.env.VITE_API_URL?.trim();
+const API_URL = (configured ? configured : 'http://localhost:8080/api').replace(/\/+$/, '');
 
 export interface Task {
   id: number;

@@ -1,0 +1,10 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "npm install --prefix task-tracker-web --no-audit --no-fund",
+  "buildCommand": "npm run build --prefix task-tracker-web",
+  "outputDirectory": "task-tracker-web/dist",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

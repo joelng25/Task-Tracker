@@ -28,7 +28,7 @@
   }
 }
 
-.App-header {
+.app-header {
   max-width: 900px;
   margin: 0 auto 40px;
   padding: 40px 30px;
@@ -39,13 +39,13 @@
   text-align: center;
 }
 
-.App-header h1 {
+.app-header h1 {
   margin: 0 0 10px 0;
   font-size: 2.8em;
   font-weight: 700;
 }
 
-.App-header p {
+.app-header p {
   margin: 0;
   font-size: 1.1em;
 }
@@ -64,7 +64,7 @@
   color: white;
 }
 
-.App-main {
+.app-main {
   max-width: 900px;
   margin: 0 auto;
   background: white;
@@ -73,23 +73,23 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
-.Form-section {
+.form-section {
   margin-bottom: 30px;
 }
 
-.Filter-section {
+.filter-section {
   margin-bottom: 30px;
   padding-bottom: 20px;
   border-bottom: 2px solid #f0f0f0;
 }
 
-.Filter-buttons {
+.filter-buttons {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
 }
 
-.Filter-buttons button {
+.filter-buttons button {
   padding: 10px 20px;
   border: 2px solid #ddd;
   background: white;
@@ -101,24 +101,24 @@
   color: #555;
 }
 
-.Filter-buttons button:hover {
+.filter-buttons button:hover {
   border-color: #667eea;
   color: #667eea;
   background: #f8f9ff;
 }
 
-.Filter-buttons button.active {
+.filter-buttons button.active {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border-color: transparent;
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
-.List-section {
+.list-section {
   min-height: 200px;
 }
 
-.Loading {
+.loading {
   text-align: center;
   color: #667eea;
   font-size: 18px;
