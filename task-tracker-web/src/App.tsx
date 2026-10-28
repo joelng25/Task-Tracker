@@ -30,7 +30,7 @@ function App() {
     <div className="App">
       <header className="app-header">
         <div className="logo-container">
-          <img src="/ballot.svg" alt="Task Manager Logo" className="app-logo" />
+          <img src="/ballot-white.svg" alt="Task Manager logo" className="app-logo" />
           <h1>Task Manager</h1>
         </div>
         <p>Manage your tasks efficiently</p>
