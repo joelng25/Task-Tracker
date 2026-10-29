@@ -14,8 +14,6 @@ A React and TypeScript task board backed by a C++ REST API, with Docker, GitHub 
 
 The frontend and API are two free Render services ([`render.yaml`](render.yaml)). Both run on Render's free tier and sleep when idle, so **the first load can take about 15 seconds** while the app and API wake up; after that it responds normally. Task data lives in the API container and is cleared when that service restarts or redeploys.
 
-The same UI can be hosted on Vercel. See [Deploy the frontend on Vercel](#deploy-the-frontend-on-vercel). There is no Vercel URL until that project is imported.
-
 ## Screenshots
 
 Local run of this frontend against the local API.
@@ -43,7 +41,7 @@ Local run of this frontend against the local API.
 | API tests | GoogleTest, plus a Python HTTP regression script |
 | Containers | Docker Compose locally, Docker on Render |
 | CI | GitHub Actions (API, frontend, and a Compose smoke test) |
-| Hosting | Render for the live demo. Vercel config for the frontend |
+| Hosting | Render (Docker, [`render.yaml`](render.yaml)) |
 
 The HTTP API grew out of the command-line app in [`Task-Tracker-CLI/`](Task-Tracker-CLI/) (also published as [joelng25/Task-Tracker-CLI](https://github.com/joelng25/Task-Tracker-CLI)).
 
@@ -69,9 +67,8 @@ How the UI finds that API depends on where it is hosted:
 - **Local `npm run dev`.** `VITE_API_URL` defaults to `http://localhost:8080/api`. The API allows `http://localhost:3000` via `CORS_ORIGIN`.
 - **Docker Compose.** The image is built with `VITE_API_URL=http://localhost:8080/api`. The API port is published on the host, and tasks are stored in a Docker volume.
 - **Render.** The frontend image defaults `VITE_API_URL` to `/api`. nginx in that container proxies `/api/` to `TASK_API_URL` (the public API URL in `render.yaml`), so the browser stays on one origin.
-- **Vercel.** There is no nginx proxy. The browser calls the API directly. Set `VITE_API_URL` to `https://task-tracker-api-fak9.onrender.com/api`. The Render API currently sends `Access-Control-Allow-Origin: *`, which covers a Vercel domain.
 
-`VITE_API_URL` is read in [`task-tracker-web/src/services/taskService.ts`](task-tracker-web/src/services/taskService.ts). Vite inlines it at build time. A trailing slash is removed. See [`.env.example`](task-tracker-web/.env.example) for the three usual values. Do not put secrets in that variable or in git. The demo API URL is public.
+`VITE_API_URL` is read in [`task-tracker-web/src/services/taskService.ts`](task-tracker-web/src/services/taskService.ts). Vite inlines it at build time. A trailing slash is removed. See [`.env.example`](task-tracker-web/.env.example) for the usual values. Do not put secrets in that variable or in git. The demo API URL is public.
 
 ## Run locally
 
@@ -131,24 +128,9 @@ npm run dev
 
 `test_api.py` builds nothing itself. It starts `./task-server` on a free port, then stops it.
 
-## Deploy the frontend on Vercel
+## Deploy
 
-Render keeps using the Dockerfiles in [`render.yaml`](render.yaml). Nothing in the Vercel config changes that build.
-
-1. In Vercel, import [joelng25/Task-Tracker](https://github.com/joelng25/Task-Tracker).
-2. Set **Root Directory** to `task-tracker-web`.
-3. Framework preset: **Vite**. [`task-tracker-web/vercel.json`](task-tracker-web/vercel.json) runs `npm run build`, publishes `dist`, and rewrites other paths to `index.html` so a direct load of any client route still serves the app.
-4. Add a **Production** and **Preview** environment variable (this is public config, not a secret):
-
-   `VITE_API_URL` = `https://task-tracker-api-fak9.onrender.com/api`
-
-5. Deploy. The first call can wait about 10 seconds while the free Render API wakes up.
-
-If the root directory is left as the repository root, the root [`vercel.json`](vercel.json) builds `task-tracker-web` the same way. Prefer step 2 so the project root is the Vite app.
-
-Node.js 22 is pinned with `task-tracker-web/package.json` `engines` and `.node-version`.
-
-After the first Vercel deploy, the production URL can be added to the live demo table above.
+The live demo is deployed on Render from [`render.yaml`](render.yaml): in Render, **New → Blueprint**, pick this repo, and it creates the API and web services from their Dockerfiles. If the API URL changes, update `TASK_API_URL` in `render.yaml`.
 
 ## Layout
 
@@ -158,5 +140,4 @@ task-tracker-web/     React + TypeScript app
 docs/screenshots/     README images
 render.yaml           Render blueprint (API + web)
 docker-compose.yml    Local API + web
-vercel.json           Optional Vercel build from the repo root
 ```
