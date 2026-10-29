@@ -1,2 +1,0 @@
-- Keep CLI and API persistence consistent: fail closed on corrupt JSON and atomically replace task files.
-- Strictly validate route IDs; write failures return HTTP 500 without changing prior tasks.
