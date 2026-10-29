@@ -21,8 +21,8 @@ INSTALLATION
 
 Clone the repository and build the application:
 
-    git clone https://github.com/yourusername/Task-Tracker-CLI.git
-    cd Task-Tracker-CLI
+    git clone https://github.com/joelng25/Task-Tracker.git
+    cd Task-Tracker/Task-Tracker-CLI
     make
 
 ------------------------------------------------------------------------------------------
