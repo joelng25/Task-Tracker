@@ -12,7 +12,7 @@ A React and TypeScript task board backed by a C++ REST API, with Docker, GitHub 
 | App | [https://task-tracker-web-4uqz.onrender.com](https://task-tracker-web-4uqz.onrender.com) |
 | API | [https://task-tracker-api-fak9.onrender.com](https://task-tracker-api-fak9.onrender.com) · [GET /api/tasks](https://task-tracker-api-fak9.onrender.com/api/tasks) |
 
-The frontend and API are two free Render services ([`render.yaml`](render.yaml)). The free API sleeps when idle and can take about 10 seconds to wake on the first request. Task data lives in the API container and is cleared when that service restarts or redeploys.
+The frontend and API are two free Render services ([`render.yaml`](render.yaml)). Both run on Render's free tier and sleep when idle, so **the first load can take about 15 seconds** while the app and API wake up; after that it responds normally. Task data lives in the API container and is cleared when that service restarts or redeploys.
 
 The same UI can be hosted on Vercel. See [Deploy the frontend on Vercel](#deploy-the-frontend-on-vercel). There is no Vercel URL until that project is imported.
 
